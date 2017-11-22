@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Movies_REST_API.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'movies_rest_api',
+        'NAME': 'movies_rest_api2',
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
         'PASSWORD': 'coderslab',
