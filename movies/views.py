@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -19,6 +20,16 @@ class MoviesView(APIView):
         )
         return Response(serializer.data)
 
+    def post(self, request, format=None):
+        serializer = MovieSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
 
 class MovieView(APIView):
     def get_object(self, id):
@@ -36,3 +47,22 @@ class MovieView(APIView):
             }
         )
         return Response(serializer.data)
+
+    def delete(self, reguest, id, format=None):
+        movie = self.get_object(id)
+        movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, id, format=None):
+        movie = self.get_object(id)
+        serializer = MovieSerializer(
+            movie,
+            data=request.data
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
