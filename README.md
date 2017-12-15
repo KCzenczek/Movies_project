@@ -5,4 +5,4 @@ This application should handle the list of movies.
 
 The project will be written in Python using Django and Django REST.
 
-
+[work in progress]
